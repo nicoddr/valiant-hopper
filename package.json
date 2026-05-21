@@ -1,0 +1,18 @@
+{
+  "name": "therapy-game",
+  "version": "1.0.0",
+  "description": "Therapy Game - Offline Progressive Web App",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y http-server -p 3000",
+    "start": "npx -y http-server -p 3000"
+  },
+  "keywords": [
+    "therapy",
+    "game",
+    "pwa",
+    "offline"
+  ],
+  "author": "",
+  "license": "ISC"
+}

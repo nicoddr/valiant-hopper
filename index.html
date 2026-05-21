@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Therapy Game</title>
+  
+  <!-- SEO Tags -->
+  <meta name="description" content="A card game of deep connection, empathy, and drinking fun with friends and couples. Fully offline capable.">
+  <meta name="theme-color" content="#F5EFEB">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container" id="app-wrapper">
+    <!-- Header bar -->
+    <header>
+      <div class="brand-section">
+        <h1 id="ui-app-title">Therapy Game</h1>
+      </div>
+      
+      <div class="lang-selector">
+        <button id="btn-lang-trigger" class="btn-lang">
+          <span id="btn-lang-flag">🇫🇷</span>
+          <span id="btn-lang-code">FR</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Screens -->
+    <main>
+      
+      <!-- 1. LOBBY & SETUP SCREEN -->
+      <section id="lobby-screen" class="view-screen active">
+        <h2 id="ui-setup-title" class="hidden">Lobby & Rules</h2>
+        <p id="ui-setup-subtitle" class="screen-subtitle">Ajoutez des participants et configurez votre partie de cartes.</p>
+        
+        <!-- Add Player Form -->
+        <div class="player-input-group">
+          <input type="text" id="player-name-input" placeholder="Nom du joueur..." maxlength="20">
+          <button id="btn-add-player" class="btn-add">Ok</button>
+        </div>
+        
+        <!-- Players List -->
+        <h3 id="ui-players-list-title" style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Joueurs</h3>
+        <div class="players-container" id="players-list-container">
+          <!-- Dynamically filled with player items -->
+        </div>
+        
+        <!-- Categories Selection -->
+        <h3 id="ui-select-category-title" style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Sélectionner la catégorie</h3>
+        <div class="category-grid">
+          <button class="category-card" data-cat="friends">
+            <span class="category-icon">💬</span>
+            <span class="category-name" id="ui-cat-friends">Amis</span>
+          </button>
+          <button class="category-card" data-cat="couples">
+            <span class="category-icon">❤️</span>
+            <span class="category-name" id="ui-cat-couples">Couple</span>
+          </button>
+          <button class="category-card" data-cat="buddies">
+            <span class="category-icon">🌿</span>
+            <span class="category-name" id="ui-cat-buddies">Potes / Connaissances</span>
+          </button>
+          <button class="category-card" data-cat="funny">
+            <span class="category-icon">🍻</span>
+            <span class="category-name" id="ui-cat-funny">Version Drôle</span>
+          </button>
+        </div>
+        
+        <!-- Card Types Selection -->
+        <h3 id="ui-select-types-title" style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Choisir les types de cartes</h3>
+        <div class="types-selector">
+          <button class="type-pill selected" data-type="soft">
+            <span class="type-dot" style="width: 8px; height: 8px; border-radius: 50%; background: var(--bg-soft);"></span>
+            <span id="ui-type-soft">Soft</span>
+          </button>
+          <button class="type-pill selected" data-type="empathy">
+            <span class="type-dot" style="width: 8px; height: 8px; border-radius: 50%; background: var(--bg-empathie);"></span>
+            <span id="ui-type-empathy">Empathie</span>
+          </button>
+          <button class="type-pill selected" data-type="deep">
+            <span class="type-dot" style="width: 8px; height: 8px; border-radius: 50%; background: var(--bg-deep);"></span>
+            <span id="ui-type-deep">Deep</span>
+          </button>
+        </div>
+        
+        <!-- Start Button -->
+        <button id="btn-start-game" class="btn-primary">Commencer la partie</button>
+      </section>
+
+      
+      <!-- 2. GAME CARD ARENA SCREEN -->
+      <section id="game-screen" class="view-screen">
+        <!-- Turn header -->
+        <div class="turn-indicator">
+          <div class="active-player-banner">
+            <div class="active-player-avatar" id="active-player-color"></div>
+            <span class="active-player-name" id="active-player-name">Joueur Actif</span>
+          </div>
+          <span class="card-category-badge" id="game-category-badge">Amis</span>
+        </div>
+        
+        <!-- Stack container -->
+        <div class="card-arena" id="card-arena-container">
+          <!-- Behind shadow card for physical stack effect -->
+          <div class="card-shadow-bg"></div>
+          
+          <!-- Interactive front card -->
+          <div class="card" id="game-card" data-card-type="soft">
+            <div class="card-header-line">
+              <span id="card-type-label">Soft</span>
+              <span id="card-deck-count">1/50</span>
+            </div>
+            
+            <div class="card-content" id="card-question-text">
+              Question text goes here...
+            </div>
+            
+
+            
+            <div class="card-footer">
+              <span>Therapy Game</span>
+              <span id="card-swipe-prompt">← Swipe →</span>
+            </div>
+          </div>
+        </div>
+        
+
+        
+        <!-- Game screen bottom actions -->
+        <div class="game-controls-bottom">
+          <button id="btn-tap-skip" class="btn-secondary" style="flex: 1; border-color: rgba(158, 58, 58, 0.3);">✕</button>
+          <button id="btn-end-game" class="btn-secondary" style="flex: 2;">Terminer la partie</button>
+          <button id="btn-tap-answer" class="btn-secondary" style="flex: 1; border-color: rgba(77, 110, 90, 0.3);">✓</button>
+        </div>
+      </section>
+
+      
+      <!-- 3. SCOREBOARD SCREEN -->
+      <section id="results-screen" class="view-screen">
+        <h2 id="ui-results-title">Partie terminée</h2>
+        <p id="ui-results-subtitle" class="screen-subtitle">Voici le tableau des scores final !</p>
+        
+        <!-- Results container -->
+        <div class="results-list" id="results-list-container">
+          <!-- Dynamically filled with player rankings -->
+        </div>
+        
+        <!-- Bottom action -->
+        <button id="btn-play-again" class="btn-primary">Rejouer</button>
+      </section>
+      
+    </main>
+
+    <!-- Exit Confirmation Modal Dialog -->
+    <div class="modal-overlay" id="exit-modal">
+      <div class="modal-box">
+        <div class="modal-title" id="ui-confirm-end-title">Quitter la partie ?</div>
+        <p class="modal-text" id="ui-confirm-end-text">Êtes-vous sûr de vouloir terminer la partie en cours ? Vos scores seront comptabilisés.</p>
+        <div class="modal-buttons">
+          <button class="modal-btn-cancel" id="btn-modal-cancel">Annuler</button>
+          <button class="modal-btn-confirm" id="btn-modal-confirm">Terminer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Language Selector Modal Dialog -->
+    <div class="modal-overlay" id="lang-modal">
+      <div class="modal-box lang-modal-box">
+        <div class="modal-title" id="ui-lang-title">Choisir la langue</div>
+        <div class="lang-options-list">
+          <button class="lang-opt-btn" data-lang="fr">
+            <span class="lang-flag">🇫🇷</span>
+            <span>Français</span>
+            <span class="lang-native">Français</span>
+          </button>
+          <button class="lang-opt-btn" data-lang="en">
+            <span class="lang-flag">🇬🇧</span>
+            <span>English</span>
+            <span class="lang-native">English</span>
+          </button>
+          <button class="lang-opt-btn" data-lang="es">
+            <span class="lang-flag">🇪🇸</span>
+            <span>Español</span>
+            <span class="lang-native">Español</span>
+          </button>
+          <button class="lang-opt-btn" data-lang="lt">
+            <span class="lang-flag">🇱🇹</span>
+            <span>Lietuvių</span>
+            <span class="lang-native">Lietuvių</span>
+          </button>
+          <button class="lang-opt-btn" data-lang="jp">
+            <span class="lang-flag">🇯🇵</span>
+            <span>日本語</span>
+            <span class="lang-native">日本語</span>
+          </button>
+        </div>
+        <div class="modal-buttons">
+          <button class="modal-btn-cancel" id="btn-lang-close">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript Modules (Loaded sequentially since we use vanilla) -->
+  <script src="js/translations.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/players.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Service Worker Registration for Offline support -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Service Worker registered successfully.', reg.scope))
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>

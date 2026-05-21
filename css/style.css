@@ -1,0 +1,940 @@
+/* ==========================================================================
+   THERAPY GAME - Premium CSS Design System
+   Inspired by: Therapy by Dan (minimalist, elegant, tactile card deck style)
+   ========================================================================== */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* Core Brand Colors (Sleek Dark Mode) */
+  --bg-cream: #090909;
+  --bg-card-base: #141212;
+  --text-charcoal: #E5DFDC;
+  --text-muted: #A39A96;
+  --border-light: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(255, 255, 255, 0.12);
+  
+  /* Category Colors (Vibrant elegant accents) */
+  --color-amis: #548FC2;       /* Soft sky blue */
+  --color-couple: #D95D5D;     /* Velvet red */
+  --color-potes: #66A380;      /* Calm emerald green */
+  --color-drole: #E3B353;      /* Muted glowing gold */
+  
+  /* Card Type Colors (Dark card backdrops) */
+  --bg-deep: #111010;          /* Pure obsidian charcoal */
+  --text-deep: #FDFCF7;
+  --bg-empathie: #182B3F;      /* Rich midnight slate */
+  --text-empathie: #FDFCF7;
+  --bg-soft: #1D2E25;          /* Deep forest evergreen */
+  --text-soft: #FDFCF7;
+
+  /* UI Animation timings */
+  --transition-smooth: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-cream);
+  color: var(--text-charcoal);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  padding: 16px;
+  /* Ambient glow room light, transition changes smoothly */
+  background-image: radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.02) 0%, var(--bg-cream) 70%);
+  background-attachment: fixed;
+  transition: background 0.8s cubic-bezier(0.16, 1, 0.3, 1), var(--transition-smooth);
+}
+
+/* Category-based Ambient Glow Themes */
+body[data-theme="friends"] {
+  background-image: radial-gradient(circle at 50% 25%, rgba(84, 143, 194, 0.12) 0%, rgba(84, 143, 194, 0.02) 40%, var(--bg-cream) 80%);
+}
+body[data-theme="couples"] {
+  background-image: radial-gradient(circle at 50% 25%, rgba(217, 93, 93, 0.12) 0%, rgba(217, 93, 93, 0.02) 40%, var(--bg-cream) 80%);
+}
+body[data-theme="buddies"] {
+  background-image: radial-gradient(circle at 50% 25%, rgba(102, 163, 128, 0.12) 0%, rgba(102, 163, 128, 0.02) 40%, var(--bg-cream) 80%);
+}
+body[data-theme="funny"] {
+  background-image: radial-gradient(circle at 50% 25%, rgba(227, 179, 83, 0.10) 0%, rgba(227, 179, 83, 0.02) 40%, var(--bg-cream) 80%);
+}
+
+/* App Container */
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(20, 18, 18, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 28px;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+/* Header & Utility Bar */
+header {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-light);
+  z-index: 10;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+/* Language Selector */
+.lang-selector .btn-lang {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-charcoal);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-medium);
+  border-radius: 20px;
+  padding: 6px 14px;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang-selector .btn-lang:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--text-charcoal);
+}
+
+/* Main Content Views */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.view-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: var(--transition-smooth);
+  overflow-y: auto;
+}
+
+.view-screen.active {
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Scrollbar styles for inner screen overflow */
+.view-screen::-webkit-scrollbar {
+  width: 6px;
+}
+.view-screen::-webkit-scrollbar-thumb {
+  background-color: var(--border-medium);
+  border-radius: 4px;
+}
+
+/* Screen Subtitle / Description */
+.screen-subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   LOBBY SCREEN (Player Setup)
+   ========================================================================== */
+.player-input-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.player-input-group input {
+  flex: 1;
+  padding: 14px 18px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  border: 1px solid var(--border-medium);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--text-charcoal);
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.player-input-group input:focus {
+  border-color: var(--text-charcoal);
+  box-shadow: 0 0 0 3px rgba(42, 38, 37, 0.05);
+}
+
+.btn-add {
+  background: var(--text-charcoal);
+  color: #fff;
+  border: none;
+  padding: 0 20px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-add:hover {
+  background: #3A3534;
+}
+
+/* Players List */
+.players-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 24px;
+  padding-right: 4px;
+}
+
+.player-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(42, 38, 37, 0.03);
+  border-radius: 12px;
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.player-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.player-name {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.btn-remove-player {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 6px;
+  transition: var(--transition-fast);
+}
+
+.btn-remove-player:hover {
+  color: var(--color-couple);
+}
+
+/* Category Grid */
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.category-card {
+  border: 1px solid var(--border-medium);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100px;
+  cursor: pointer;
+  background: transparent;
+  text-align: left;
+  transition: var(--transition-smooth);
+}
+
+.category-card.selected {
+  border-width: 2px;
+}
+
+.category-card[data-cat="friends"] {
+  color: var(--color-amis);
+  border-color: rgba(63, 94, 123, 0.25);
+}
+.category-card[data-cat="friends"].selected {
+  background: rgba(63, 94, 123, 0.08);
+  border-color: var(--color-amis);
+  box-shadow: 0 4px 15px rgba(63, 94, 123, 0.1);
+}
+
+.category-card[data-cat="couples"] {
+  color: var(--color-couple);
+  border-color: rgba(158, 58, 58, 0.25);
+}
+.category-card[data-cat="couples"].selected {
+  background: rgba(158, 58, 58, 0.08);
+  border-color: var(--color-couple);
+  box-shadow: 0 4px 15px rgba(158, 58, 58, 0.1);
+}
+
+.category-card[data-cat="buddies"] {
+  color: var(--color-potes);
+  border-color: rgba(77, 110, 90, 0.25);
+}
+.category-card[data-cat="buddies"].selected {
+  background: rgba(77, 110, 90, 0.08);
+  border-color: var(--color-potes);
+  box-shadow: 0 4px 15px rgba(77, 110, 90, 0.1);
+}
+
+.category-card[data-cat="funny"] {
+  color: var(--color-drole);
+  border-color: rgba(212, 163, 67, 0.25);
+}
+.category-card[data-cat="funny"].selected {
+  background: rgba(212, 163, 67, 0.08);
+  border-color: var(--color-drole);
+  box-shadow: 0 4px 15px rgba(212, 163, 67, 0.1);
+}
+
+.category-icon {
+  font-size: 24px;
+}
+
+.category-name {
+  font-weight: 700;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+/* Card Types Selection */
+.types-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.type-pill {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-medium);
+  background: transparent;
+  transition: var(--transition-fast);
+}
+
+.type-pill[data-type="soft"] {
+  border-color: rgba(106, 142, 127, 0.4);
+  color: var(--bg-soft);
+}
+.type-pill[data-type="soft"].selected {
+  background: var(--bg-soft);
+  color: #fff;
+  border-color: var(--bg-soft);
+}
+
+.type-pill[data-type="empathy"] {
+  border-color: rgba(54, 75, 99, 0.4);
+  color: var(--bg-empathie);
+}
+.type-pill[data-type="empathy"].selected {
+  background: var(--bg-empathie);
+  color: #fff;
+  border-color: var(--bg-empathie);
+}
+
+.type-pill[data-type="deep"] {
+  border-color: rgba(26, 24, 23, 0.4);
+  color: var(--bg-deep);
+}
+.type-pill[data-type="deep"].selected {
+  background: var(--bg-deep);
+  color: #fff;
+  border-color: var(--bg-deep);
+}
+
+/* Primary Action Button */
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  border-radius: 16px;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.btn-primary.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #ccc !important;
+  color: #888 !important;
+}
+
+/* Dynamic button color based on selected category */
+.app-container[data-active-theme="friends"] .btn-primary {
+  background: var(--color-amis);
+  color: #fff;
+}
+.app-container[data-active-theme="couples"] .btn-primary {
+  background: var(--color-couple);
+  color: #fff;
+}
+.app-container[data-active-theme="buddies"] .btn-primary {
+  background: var(--color-potes);
+  color: #fff;
+}
+.app-container[data-active-theme="funny"] .btn-primary {
+  background: var(--color-drole);
+  color: #fff;
+}
+.app-container:not([data-active-theme]) .btn-primary {
+  background: var(--text-charcoal);
+  color: #fff;
+}
+
+/* ==========================================================================
+   GAME VIEW SCREEN
+   ========================================================================== */
+
+/* Active Player Display */
+.turn-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.active-player-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.active-player-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.active-player-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.card-category-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.category-amis-badge {
+  background: rgba(63, 94, 123, 0.12);
+  color: var(--color-amis);
+}
+.category-couples-badge {
+  background: rgba(158, 58, 58, 0.12);
+  color: var(--color-couple);
+}
+.category-buddies-badge {
+  background: rgba(77, 110, 90, 0.12);
+  color: var(--color-potes);
+}
+.category-funny-badge {
+  background: rgba(212, 163, 67, 0.12);
+  color: var(--color-drole);
+}
+
+/* Physical Card Arena & Stack */
+.card-arena {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 12px 0;
+  min-height: 380px; /* Secure height bounds for the absolute stacked cards */
+}
+
+/* Card Styling (Inspired by physical high-end minimal cards) */
+.card {
+  width: 90%;
+  height: 90%;
+  max-width: 300px;
+  max-height: 400px;
+  border-radius: 20px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  box-shadow: 
+    0 25px 45px rgba(0, 0, 0, 0.45),
+    0 4px 15px rgba(0, 0, 0, 0.2);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transform-origin: 50% 100%;
+  transition: transform 0.1s ease;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+/* Card Variants (Card Types: Deep, Empathie, Soft) */
+.card[data-card-type="deep"] {
+  background: var(--bg-deep);
+  color: var(--text-deep);
+  border: 1px solid rgba(253, 252, 247, 0.15);
+}
+.card[data-card-type="empathy"] {
+  background: var(--bg-empathie);
+  color: var(--text-empathie);
+  border: 1px solid rgba(253, 252, 247, 0.15);
+}
+.card[data-card-type="soft"] {
+  background: var(--bg-soft);
+  color: var(--text-soft);
+  border: 1px solid rgba(253, 252, 247, 0.15);
+}
+
+/* Elegant card design additions */
+.card-header-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  opacity: 0.7;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.card-content {
+  flex: 1;
+  display: block; /* Native block layout for normal inline wrapping flow */
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 500;
+  margin: auto 0; /* Align card content in vertical center */
+  padding: 10px 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.player-highlight {
+  display: inline; /* Keep text flows continuous */
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 0px;
+  font-weight: 700;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+/* Swiping action feedback colors */
+.card.swipe-right-intent {
+  box-shadow: 0 0 25px rgba(77, 110, 90, 0.4);
+}
+.card.swipe-left-intent {
+  box-shadow: 0 0 25px rgba(158, 58, 58, 0.4);
+}
+
+/* Background Card (visual stack effect) */
+.card-shadow-bg {
+  width: 90%;
+  height: 90%;
+  max-width: 300px;
+  max-height: 400px;
+  border-radius: 20px;
+  position: absolute;
+  background: var(--bg-card-base);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transform: scale(0.96) translateY(12px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Swipe Assist Indicators */
+.swipe-instructions {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.swipe-pass {
+  color: var(--color-couple);
+}
+
+.swipe-answer {
+  color: var(--color-potes);
+}
+
+/* Bottom Controls */
+.game-controls-bottom {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-medium);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  color: var(--text-charcoal);
+  border-color: var(--text-charcoal);
+}
+
+/* Drinking / Funny mode actions on Card */
+.funny-drink-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.funny-drink-action {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.funny-drink-pass {
+  background: rgba(158, 58, 58, 0.2);
+  color: #FFA3A3;
+}
+
+.funny-drink-ans {
+  background: rgba(77, 110, 90, 0.2);
+  color: #A3FFC6;
+}
+
+/* ==========================================================================
+   SCOREBOARD / END GAME VIEW
+   ========================================================================== */
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.result-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+  background: var(--bg-card-base);
+}
+
+.result-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.rank-number {
+  font-size: 18px;
+  font-weight: 700;
+  width: 24px;
+  color: var(--text-muted);
+}
+
+.rank-number-1 {
+  color: var(--color-drole);
+  font-size: 22px;
+}
+
+.result-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.result-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.result-points {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.result-sub-points {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   ANIMATIONS & UTILITIES
+   ========================================================================== */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Dialog popup styled nicely */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(42, 38, 37, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-fast);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  width: 85%;
+  background: var(--bg-card-base);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  text-align: center;
+  transform: scale(0.9);
+  transition: var(--transition-smooth);
+}
+
+.modal-overlay.active .modal-box {
+  transform: scale(1);
+}
+
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.modal-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.modal-btn-cancel {
+  background: rgba(42, 38, 37, 0.06);
+  color: var(--text-charcoal);
+}
+
+.modal-btn-confirm {
+  background: var(--color-couple);
+  color: #fff;
+}
+
+/* Custom Language Selector Modal Overlay */
+#lang-modal.modal-overlay {
+  background: rgba(9, 9, 9, 0.85);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+}
+
+.lang-modal-box {
+  width: 90%;
+  max-width: 360px;
+  background: rgba(20, 18, 18, 0.75);
+  border: 1px solid var(--border-medium);
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+}
+
+.lang-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.lang-opt-btn {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-charcoal);
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: var(--transition-fast);
+}
+
+.lang-opt-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-medium);
+  transform: translateX(2px);
+}
+
+.lang-opt-btn.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--text-charcoal);
+  font-weight: 600;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.02);
+}
+
+.lang-opt-btn .lang-flag {
+  font-size: 20px;
+}
+
+.lang-opt-btn .lang-native {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
