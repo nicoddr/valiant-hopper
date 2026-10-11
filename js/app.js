@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Setup language from browser preference if supported, otherwise default to FR
   const browserLang = navigator.language.split("-")[0];
-  if (["en", "fr", "es", "lt", "jp"].includes(browserLang)) {
+  if (["en", "fr", "es", "lt", "lv", "jp"].includes(browserLang)) {
     window.currentLanguage = browserLang;
   }
   
@@ -124,7 +124,7 @@ function updateUILanguage() {
   DOM.btnPlayAgain.textContent = t.playAgain;
   
   // Update header language button trigger flag and code
-  const flags = { fr: "🇫🇷", en: "🇬🇧", es: "🇪🇸", lt: "🇱🇹", jp: "🇯🇵" };
+  const flags = { fr: "🇫🇷", en: "🇬🇧", es: "🇪🇸", lt: "🇱🇹", lv: "🇱🇻", jp: "🇯🇵" };
   DOM.btnLangFlag.textContent = flags[lang] || "🌐";
   DOM.btnLangCode.textContent = lang.toUpperCase();
 
@@ -136,8 +136,8 @@ function updateUILanguage() {
   DOM.uiConfirmEndTitle.textContent = t.endGame;
   DOM.uiConfirmEndText.textContent = t.confirmEndGame;
   
-  const modalCancelText = { en: "Cancel", fr: "Annuler", es: "Cancelar", lt: "Atšaukti", jp: "キャンセル" };
-  const modalConfirmText = { en: "End", fr: "Terminer", es: "Terminar", lt: "Baigti", jp: "終了" };
+  const modalCancelText = { en: "Cancel", fr: "Annuler", es: "Cancelar", lt: "Atšaukti", lv: "Atcelt", jp: "キャンセル" };
+  const modalConfirmText = { en: "End", fr: "Terminer", es: "Terminar", lt: "Baigti", lv: "Pabeigt", jp: "終了" };
   DOM.btnModalCancel.textContent = modalCancelText[lang] || modalCancelText["en"];
   DOM.btnModalConfirm.textContent = modalConfirmText[lang] || modalConfirmText["en"];
   
