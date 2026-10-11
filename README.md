@@ -1,86 +1,92 @@
-# Jeu de Cartes Thérapie (Therapy Game) 🃏✨
+# Therapy Game 🃏✨
 
-**Therapy Game** est une Progressive Web App (PWA) de jeu de cartes premium et minimaliste, conçue pour favoriser les connexions profondes, l'empathie et les conversations sincères. Inspiré de jeux de discussion comme *Therapy by Dan*, il propose une esthétique moderne et soignée, des micro-interactions fluides, des gestes tactiles/souris responsifs et un support multilingue complet.
-
----
-
-## 🌟 Fonctionnalités Clés
-
-*   **Design Premium & Immersif** : Un thème sombre élégant avec des lumières d'ambiance tamisées (glows) qui s'adaptent dynamiquement à la catégorie choisie :
-    *   🔵 **Bleu** pour la catégorie **Amis**
-    *   🔴 **Rouge** pour la catégorie **Couple**
-    *   🟢 **Vert** pour la catégorie **Potes**
-    *   🟡 **Or** pour la version **Drôle**
-*   **Interactions Dynamiques des Cartes** : Supporte les glissements (swipes) tactiles ou à la souris avec des retours visuels colorés selon l'intention (vert à droite pour répondre/valider, rouge à gauche pour passer/ignorer).
-*   **Gameplay Adaptatif** :
-    *   **Contenu personnalisé** : Les questions injectent dynamiquement le prénom du joueur actif (`{active}`) ou de partenaires au hasard (`{p1}`, `{p2}`).
-    *   **Filtre de groupe** : Les cartes qui nécessitent plus de joueurs que le nombre de participants inscrits sont automatiquement écartées du paquet.
-*   **4 Catégories de Discussion** :
-    *   💬 **Amis** : Des questions pensées pour révéler des pensées sincères et renforcer les liens amicaux.
-    *   ❤️ **Couple** : Des questions intimes pour explorer les rêves, préoccupations et complicités de votre relation.
-    *   🌿 **Potes / Connaissances** : Des sujets légers mais engageants pour briser la glace.
-    *   🍻 **Version Drôle** : Une variante amusante intégrant des points et des gorgées (gagner des points et distribuer des gorgées en répondant, ou boire en passant).
-*   **3 Niveaux de Profondeur** : Chaque paquet est divisé en :
-    *   🟢 **Soft** : Des brise-glaces légers (cartes sur fond vert forêt).
-    *   🔵 **Empathie** : Des questions basées sur l'intuition et la perception des autres (cartes sur fond bleu nuit / ardoise).
-    *   ⚫ **Deep** : Des questions profondes sur les valeurs et les philosophies de vie (cartes sur fond noir obsidienne).
-*   **Sélecteur de Langue Premium** : Une interface moderne en plein écran avec un fond flouté (glassmorphism) permettant de changer instantanément la langue parmi : **Français (FR)**, **Anglais (EN)**, **Espagnol (ES)**, **Lituanien (LT)** et **Japonais (JP)**.
-*   **PWA & Fonctionnement Hors-ligne (Offline)** : Installable directement sur iOS, Android et PC. Grâce à un Service Worker, le jeu est utilisable dans des zones sans réseau (transports, nature, etc.).
+**Therapy Game** is a premium, minimalist card game Progressive Web App (PWA) designed to foster deep connections, empathy, and honest conversations. Inspired by card games like *Therapy by Dan*, it features a sleek modern aesthetic, smooth micro-interactions, responsive touch/mouse gestures, and comprehensive multi-language support.
 
 ---
 
-## 🛠️ Stack Technique
+## 🌟 Key Features
 
-*   **Frontend** : HTML5, CSS3 (système de design vanilla avec variables personnalisées, animations de flou et effets de lumière), Javascript ES6 moderne (sans framework, API Pointer Events pour la gestion fluide du swipe).
-*   **PWA** : Service Worker pour le cache local, Manifeste d'application Web pour l'installation autonome.
-*   **Serveur local** : `http-server` (port 3000) pour le développement et le test en local.
+*   **Premium & Immersive Design**: An elegant dark theme with subtle ambient glows that dynamically adapt to the selected category:
+    *   🔵 **Blue** for **Friends**
+    *   🔴 **Red** for **Couples**
+    *   🟢 **Green** for **Buddies / Acquaintances**
+    *   🟡 **Gold** for **Funny / Drinking**
+*   **Dynamic Card Interactions**: Supports touch and mouse card swipes with colored visual feedback based on intent (green to the right to answer/validate, red to the left to skip/pass).
+*   **Adaptive Gameplay**:
+    *   **Personalized Content**: Questions dynamically inject the active player's name (`{active}`) or randomly assigned participants (`{p1}`, `{p2}`).
+    *   **Group Size Filtering**: Cards requiring more players than currently enrolled are automatically excluded from the deck.
+*   **4 Conversation Categories**:
+    *   💬 **Friends**: Questions crafted to spark genuine sharing and deepen friendly bonds.
+    *   ❤️ **Couples**: Intimate questions to explore dreams, vulnerabilities, and shared moments in your relationship.
+    *   🌿 **Buddies / Acquaintances**: Light yet engaging topics to break the ice and discover each other.
+    *   🍻 **Funny / Drinking**: A hilarious variant integrating points and sips (earn points and give sips by answering, or take sips by skipping).
+*   **3 Depth Levels**: Each deck is segmented into:
+    *   🟢 **Soft**: Light icebreakers (forest green cards).
+    *   🔵 **Empathy**: Perspective and intuition questions (midnight/slate blue cards).
+    *   ⚫ **Deep**: Thought-provoking prompts on values and life philosophies (obsidian black cards).
+*   **Multi-Language Support**: A sleek modal with glassmorphism allowing instant language switching between:
+    *   🇫🇷 **Français (FR)**
+    *   🇬🇧 **English (EN)**
+    *   🇪🇸 **Español (ES)**
+    *   🇱🇹 **Lietuvių (LT)**
+    *   🇱🇻 **Latviešu (LV)**
+    *   🇯🇵 **日本語 (JP)**
+*   **PWA & Full Offline Support**: Installable directly on iOS, Android, and desktop. Powered by a Service Worker, the game works completely offline without network access.
 
 ---
 
-## 📂 Structure du Projet
+## 🛠️ Tech Stack
+
+*   **Frontend**: HTML5, CSS3 (vanilla design system with custom CSS variables, blurs, and glow effects), modern ES6 JavaScript (zero external runtime dependencies, Pointer Events API for card gestures).
+*   **PWA**: Service Worker for asset caching, Web App Manifest for standalone installation.
+*   **Local Server**: `http-server` (port 3000) for local testing and development.
+
+---
+
+## 📂 Project Structure
 
 ```
-├── assets/                  # Logos de l'application, favicons et icônes PWA
+├── assets/                  # App logos, favicons, and PWA icons
 ├── css/
-│   └── style.css            # Styles généraux, design system, animations et effets de flou
+│   └── style.css            # Stylesheets, design system tokens, animations, and layouts
 ├── js/
-│   ├── translations.js      # Dictionnaire multilingue (FR, EN, ES, LT, JP)
-│   ├── questions.js         # Base de données de cartes (questions traduites)
-│   ├── players.js           # Gestion des joueurs et calcul du score
-│   ├── game.js              # Logique du paquet, mélange et résolution de cartes
-│   └── app.js               # Gestionnaire d'événements, navigation et sélecteurs
-├── index.html               # Structure HTML de l'application, salons et arènes
-├── manifest.json            # Configuration PWA pour l'installation sur smartphone/PC
-├── sw.js                    # Service worker pour la mise en cache hors-ligne
-├── package.json             # Scripts de démarrage et dépendances de développement
-└── README.md                # Documentation du projet (ce fichier)
+│   ├── translations.js      # Multi-language dictionary (EN, FR, ES, LT, LV, JP)
+│   ├── questions.js         # Questions database with localized card texts
+│   ├── players.js           # Player management and scoring logic
+│   ├── game.js              # Deck building, shuffling, and card text resolution
+│   └── app.js               # Main coordinator, event listeners, and navigation
+├── index.html               # Main HTML entrypoint, views, and modal dialogs
+├── manifest.json            # PWA manifest configuration
+├── sw.js                    # Service worker for offline caching
+├── package.json             # Dev scripts and dependencies
+└── README.md                # Project documentation
 ```
 
 ---
 
-## 🚀 Démarrage Rapide
+## 🚀 Quick Start
 
-### Prérequis
-Avoir installé [Node.js](https://nodejs.org/).
+### Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) installed.
 
-### Installation et Lancement
+### Setup and Running
 
-1. Ouvrez votre terminal dans le dossier du projet :
+1. Open your terminal in the project directory:
    ```bash
-   cd C:\Users\Nico\Documents\antigravity\valiant-hopper
+   cd "Therapy game"
    ```
 
-2. Lancez le serveur de développement :
+2. Start the development server:
    ```bash
    npm run dev
    ```
 
-3. Ouvrez votre navigateur sur l'adresse suivante :
+3. Open your browser at:
    ```
    http://localhost:3000
    ```
 
-### Installation Hors-ligne (PWA)
-*   **Chrome / Edge** : Cliquez sur l'icône d'installation dans la barre d'adresse.
-*   **Safari (iOS)** : Appuyez sur le bouton Partager puis sélectionnez "Sur l'écran d'accueil".
-*   **Chrome (Android)** : Appuyez sur les trois points verticaux puis sélectionnez "Installer l'application".
+### Installing Offline (PWA)
+*   **Chrome / Edge (Desktop)**: Click the install icon in the browser address bar.
+*   **Safari (iOS)**: Tap the Share button, then select "Add to Home Screen".
+*   **Chrome (Android)**: Tap the three dots menu, then select "Install app".
